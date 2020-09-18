@@ -12,6 +12,7 @@ const yamlToJson = require('js-yaml')
 const path = require('path')
 const map = require('map-stream')
 const rename = require('gulp-rename')
+const _ = require('lodash')
 
 const scssFiles = filter([configPaths.src + '**/*.scss'], { restore: true })
 const yamlFiles = filter([configPaths.components + '**/*.yaml'], { restore: true })
@@ -67,6 +68,8 @@ function generateFixtures (file) {
       }
 
       examplesJson.forEach(function (example) {
+        validateExample(componentName, example, json.params)
+
         const fixture = {
           name: example.name,
           options: example.data,
@@ -82,6 +85,27 @@ function generateFixtures (file) {
       console.error(file.path + ' is missing "examples" and/or "params"')
     }
   }
+}
+
+function validateExample(componentName, example, spec) {
+  spec.forEach(function (item) {
+    // Exempt html / text params from validation
+    if (['html', 'text'].includes(item.name.slice(-4))) {
+      return
+    }
+
+    if (item.required && !(_.get(example.data, item.name, false))) {
+      throw new Error(`"${componentName} -> ${example.name}" is not a valid example. "${item.name}" missing but marked as required.`)
+    }
+
+    // Recurse into array params
+    if(item.type === 'array' && item.params) {
+      let subSpec = spec.find(subSpec => subSpec.name === item.name).params
+      example.data[item.name].forEach(function(subItem, index) {
+        validateExample(`${componentName}`, { name: `${example.name}.${item.name}[${index}]`, data: subItem }, subSpec)
+      })
+    }
+  })
 }
 
 function generateMacroOptions (file) {

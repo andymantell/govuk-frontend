@@ -33,7 +33,7 @@ params:
   description: String to prefix id for each checkbox item if no id is specified on each item. If not passed, fall back to using the name option instead.
 - name: name
   type: string
-  required: true
+  required: false
   description: Name attribute for all checkbox items.
 - name: items
   type: array
@@ -54,7 +54,7 @@ params:
     description: Specific id attribute for the checkbox item. If omitted, then idPrefix option will be applied.
   - name: name
     type: string
-    required: true
+    required: false
     description: Specific name for the checkbox item. If omitted, then component global `name` string will be applied.
   - name: value
     type: string

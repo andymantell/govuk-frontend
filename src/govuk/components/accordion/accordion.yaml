@@ -151,6 +151,7 @@ examples:
   hidden: true
   data:
     classes: myClass
+    id: classes
     items:
       - heading:
           text: Section A
@@ -159,6 +160,7 @@ examples:
 - name: attributes
   hidden: true
   data:
+    id: attributes
     attributes:
       data-attribute: value
     items:
@@ -170,6 +172,7 @@ examples:
   hidden: true
   data:
     headingLevel: 3
+    id: custom-heading-level
     items:
       - heading:
           text: Section A
@@ -178,6 +181,7 @@ examples:
 - name: heading html
   hidden: true
   data:
+    id: heading-html
     items:
       - heading:
           html: <span class="myClass">Section A</span>
@@ -186,6 +190,7 @@ examples:
 - name: with falsey values
   hidden: true
   data:
+    id: with-falsey-values
     items:
       - heading:
           text: Section A
