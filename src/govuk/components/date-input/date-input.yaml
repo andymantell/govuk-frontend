@@ -309,10 +309,13 @@ examples:
     items:
       -
         id: day
+        name: day
       -
         id: month
+        name: month
       -
         year: year
+        name: year
 - name: suffixed id
   hidden: true
   data:
@@ -330,10 +333,13 @@ examples:
     items:
       -
         id: day
+        name: day
       -
         id: month
+        name: month
       -
         id: year
+        name: year
         value: 2018
 - name: with hint and describedBy
   hidden: true
